@@ -225,6 +225,7 @@ function initLightbox() {
   });
 }
 
+
 /* --- Drag to Scroll (Portfolio Strip) --- */
 function initDragScroll() {
   const tracks = document.querySelectorAll('.scroll-track');
