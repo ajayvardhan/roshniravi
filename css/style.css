@@ -634,6 +634,60 @@ body.loaded .hero-cta {
 }
 
 /* ============================================
+   Instagram Banner
+   ============================================ */
+.insta-banner {
+  padding: clamp(48px, 8vh, 80px) clamp(24px, 4vw, 60px);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.insta-banner-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 28px);
+  transition: opacity 0.4s;
+}
+
+.insta-banner-link:hover {
+  opacity: 0.7;
+}
+
+.insta-banner-link svg {
+  width: clamp(28px, 4vw, 40px);
+  height: clamp(28px, 4vw, 40px);
+  stroke: var(--gold);
+  flex-shrink: 0;
+}
+
+.insta-banner-handle {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.02em;
+}
+
+.insta-banner-cta {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(197,164,126,0.3);
+  padding: 10px 20px;
+  flex-shrink: 0;
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.insta-banner-link:hover .insta-banner-cta {
+  background: var(--gold);
+  color: var(--black);
+  border-color: var(--gold);
+}
+
+/* ============================================
    CTA Banner — Full-width
    ============================================ */
 .cta-full {
@@ -719,24 +773,6 @@ body.loaded .hero-cta {
 
 .btn-elegant:hover span {
   color: var(--black);
-}
-
-.cta-full-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-}
-
-.cta-insta-link {
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  color: var(--grey);
-  transition: color 0.3s;
-}
-
-.cta-insta-link:hover {
-  color: var(--gold);
 }
 
 /* ============================================
@@ -932,23 +968,10 @@ body.loaded .hero-cta {
 
 .services-row {
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto;
-}
-
-.services-row-top {
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto auto auto 1fr auto);
   gap: 0 1px;
   background: rgba(255,255,255,0.05);
-  margin-bottom: 1px;
-}
-
-.services-row-bottom {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 1px;
-  background: rgba(255,255,255,0.05);
-  max-width: 66.7%;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .service-card {
@@ -1302,13 +1325,16 @@ body.loaded .hero-cta {
   }
 
   /* Services: 2-column on tablet */
-  .services-row-top {
+  .services-row {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
   }
 
-  .services-row-bottom {
-    max-width: 100%;
-    grid-template-columns: repeat(2, 1fr);
+  .service-card {
+    grid-row: auto;
+    grid-template-rows: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .services-grid {
@@ -1382,11 +1408,9 @@ body.loaded .hero-cta {
     margin: 0 16px;
   }
 
-  .services-row-top,
-  .services-row-bottom {
+  .services-row {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    max-width: 100%;
   }
 
   .service-card {
@@ -1412,6 +1436,16 @@ body.loaded .hero-cta {
     grid-template-columns: 1fr;
     gap: 2px;
     padding: 0 2px;
+  }
+
+  .insta-banner-link {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .insta-banner-handle {
+    font-size: 1.6rem;
   }
 
   .hero-media img {
