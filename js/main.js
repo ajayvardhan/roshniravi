@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initMobileMenu();
   initRevealAnimations();
+  initLazyFade();
   initTestimonials();
   initLightbox();
   initDragScroll();
@@ -94,6 +95,18 @@ function initRevealAnimations() {
   );
 
   reveals.forEach(el => observer.observe(el));
+}
+
+/* --- Lazy Image Fade-in --- */
+function initLazyFade() {
+  const imgs = document.querySelectorAll('img[loading="lazy"]');
+  imgs.forEach(img => {
+    if (img.complete) {
+      img.classList.add('img-loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('img-loaded'));
+    }
+  });
 }
 
 /* --- Testimonials --- */
