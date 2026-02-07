@@ -1317,6 +1317,10 @@ body.loaded .hero-cta {
 }
 
 @media (max-width: 768px) {
+  .hero-media img {
+    object-position: 65% 20%;
+  }
+
   /* Nav */
   .nav-links {
     position: fixed;
@@ -1408,6 +1412,10 @@ body.loaded .hero-cta {
     grid-template-columns: 1fr;
     gap: 2px;
     padding: 0 2px;
+  }
+
+  .hero-media img {
+    object-position: 70% 20%;
   }
 
   .hero-content {
