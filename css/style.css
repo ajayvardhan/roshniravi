@@ -816,7 +816,8 @@ body.loaded .hero-cta {
   font-weight: 200;
   color: var(--grey);
   margin-top: 16px;
-  max-width: 500px;
+  max-width: 600px;
+  line-height: 1.8;
 }
 
 .portfolio-grid {
@@ -1170,6 +1171,25 @@ body.loaded .hero-cta {
 
 .about-bio-block .highlight {
   color: var(--gold);
+}
+
+.about-together {
+  text-align: center;
+  max-width: 640px;
+  margin: clamp(40px, 6vh, 72px) auto 0;
+  padding-top: clamp(40px, 6vh, 72px);
+  border-top: 1px solid rgba(197,164,126,0.15);
+}
+
+.about-together .label {
+  margin-bottom: 20px;
+}
+
+.about-together p {
+  font-size: 1rem;
+  font-weight: 200;
+  color: var(--grey);
+  line-height: 1.9;
 }
 
 .about-details {
@@ -1602,6 +1622,16 @@ body.loaded .hero-cta {
     font-size: 0.82rem;
     line-height: 1.75;
     margin-bottom: 12px;
+  }
+
+  .about-together {
+    margin-top: 28px;
+    padding-top: 28px;
+  }
+
+  .about-together p {
+    font-size: 0.85rem;
+    line-height: 1.75;
   }
 
   .about-details {
