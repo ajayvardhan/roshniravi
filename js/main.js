@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initTestimonials();
   initLightbox();
   initDragScroll();
+  initWhatsAppFloat();
+  initPortfolioFilters();
+  initFaqAccordion();
 });
 
 /* --- Loading Screen --- */
@@ -178,20 +181,20 @@ function initLightbox() {
   const prevBtn = lightbox.querySelector('.lightbox-prev');
   const nextBtn = lightbox.querySelector('.lightbox-next');
   const counterEl = lightbox.querySelector('.lightbox-counter');
-  const items = document.querySelectorAll('.portfolio-grid .grid-item');
 
   let currentIndex = 0;
-  const images = [];
 
-  items.forEach((item, i) => {
-    const img = item.querySelector('img');
-    if (img) {
-      images.push(img.src);
-      item.addEventListener('click', () => openLightbox(i));
-    }
-  });
+  function getVisibleItems() {
+    return Array.from(document.querySelectorAll('.portfolio-grid .grid-item'))
+      .filter(item => !item.classList.contains('filter-hidden'));
+  }
+
+  function getVisibleImages() {
+    return getVisibleItems().map(item => item.querySelector('img')?.src).filter(Boolean);
+  }
 
   function updateCounter() {
+    const images = getVisibleImages();
     if (counterEl) {
       counterEl.textContent = `${String(currentIndex + 1).padStart(2, '0')} / ${String(images.length).padStart(2, '0')}`;
     }
@@ -199,6 +202,7 @@ function initLightbox() {
 
   function openLightbox(index) {
     currentIndex = index;
+    const images = getVisibleImages();
     lightboxImg.src = images[index];
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -211,15 +215,29 @@ function initLightbox() {
   }
 
   function prevImage() {
+    const images = getVisibleImages();
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     lightboxImg.src = images[currentIndex];
     updateCounter();
   }
 
   function nextImage() {
+    const images = getVisibleImages();
     currentIndex = (currentIndex + 1) % images.length;
     lightboxImg.src = images[currentIndex];
     updateCounter();
+  }
+
+  // Use event delegation on the grid for click handling
+  const grid = document.querySelector('.portfolio-grid');
+  if (grid) {
+    grid.addEventListener('click', (e) => {
+      const item = e.target.closest('.grid-item');
+      if (!item || item.classList.contains('filter-hidden')) return;
+      const visibleItems = getVisibleItems();
+      const index = visibleItems.indexOf(item);
+      if (index !== -1) openLightbox(index);
+    });
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
@@ -238,6 +256,90 @@ function initLightbox() {
   });
 }
 
+
+/* --- Floating WhatsApp Button --- */
+function initWhatsAppFloat() {
+  const btn = document.querySelector('.whatsapp-float');
+  if (!btn) return;
+
+  // Show after a short delay
+  setTimeout(() => btn.classList.add('visible'), 1500);
+
+  // Hide when near the footer (avoid overlapping footer WhatsApp links)
+  const footer = document.querySelector('.footer');
+  if (footer) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          btn.style.opacity = '0';
+          btn.style.pointerEvents = 'none';
+        } else {
+          btn.style.opacity = '';
+          btn.style.pointerEvents = '';
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(footer);
+  }
+}
+
+/* --- Portfolio Filters --- */
+function initPortfolioFilters() {
+  const buttons = document.querySelectorAll('.filter-btn');
+  const grid = document.querySelector('.portfolio-grid');
+  if (!buttons.length || !grid) return;
+
+  const items = grid.querySelectorAll('.grid-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+
+      // Update active button
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Filter items
+      items.forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.classList.remove('filter-hidden');
+        } else {
+          item.classList.add('filter-hidden');
+        }
+      });
+
+      // Lightbox uses event delegation, so filtering works automatically
+    });
+  });
+}
+
+/* --- FAQ Accordion --- */
+function initFaqAccordion() {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  items.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+
+    question.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // Close all
+      items.forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = null;
+      });
+
+      // Open clicked (if it was closed)
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+}
 
 /* --- Drag to Scroll (Portfolio Strip) --- */
 function initDragScroll() {

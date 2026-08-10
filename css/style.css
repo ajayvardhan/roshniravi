@@ -1399,6 +1399,193 @@ body.loaded .hero-cta {
 }
 
 /* ============================================
+   Floating WhatsApp Button
+   ============================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 900;
+  width: 56px;
+  height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+  transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s, opacity 0.4s;
+  opacity: 0;
+  transform: scale(0) translateY(20px);
+}
+
+.whatsapp-float.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1) translateY(0);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-float svg {
+  width: 28px;
+  height: 28px;
+  fill: #fff;
+}
+
+/* ============================================
+   Portfolio Filters
+   ============================================ */
+.portfolio-filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 clamp(24px, 4vw, 60px) clamp(32px, 4vh, 48px);
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  padding: 10px 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: transparent;
+  transition: all 0.4s var(--ease-out-expo);
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  color: var(--cream);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.filter-btn.active {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: rgba(197, 164, 126, 0.08);
+}
+
+.portfolio-grid .grid-item {
+  transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+}
+
+.portfolio-grid .grid-item.filter-hidden {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+/* ============================================
+   FAQ Accordion
+   ============================================ */
+.faq-section {
+  padding: clamp(60px, 10vh, 120px) clamp(24px, 4vw, 60px) 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-section-label {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.faq-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: clamp(40px, 6vh, 64px);
+}
+
+.faq-item {
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 400;
+  color: var(--cream);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.3s;
+  gap: 20px;
+}
+
+.faq-question:hover {
+  color: var(--gold);
+}
+
+.faq-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.faq-icon::before {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.faq-icon::after {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+}
+
+.faq-item.open .faq-icon::after {
+  transform: rotate(90deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s var(--ease-out-expo), padding 0.5s var(--ease-out-expo);
+}
+
+.faq-answer-inner {
+  padding-bottom: 24px;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--grey-light);
+  line-height: 1.8;
+}
+
+/* ============================================
    Responsive
    ============================================ */
 @media (max-width: 1024px) {
@@ -1656,6 +1843,40 @@ body.loaded .hero-cta {
 
   .footer-brand p {
     font-size: 0.8rem;
+  }
+
+  /* WhatsApp float */
+  .whatsapp-float {
+    bottom: 20px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .whatsapp-float svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Portfolio filters */
+  .portfolio-filters {
+    gap: 6px;
+    padding: 0 16px 24px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.6rem;
+  }
+
+  /* FAQ */
+  .faq-section {
+    padding: 40px 16px 0;
+  }
+
+  .faq-question {
+    font-size: 1rem;
+    padding: 20px 0;
   }
 
   /* Lightbox mobile */
