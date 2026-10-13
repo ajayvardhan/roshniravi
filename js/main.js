@@ -157,7 +157,13 @@ function initLightbox() {
   }
 
   function getVisibleImages() {
-    return getVisibleItems().map(item => item.querySelector('img')?.src).filter(Boolean);
+    return getVisibleItems().map(item => item.querySelector('img')).filter(Boolean);
+  }
+
+  function show(index) {
+    const img = getVisibleImages()[index];
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
   }
 
   function updateCounter() {
@@ -169,8 +175,7 @@ function initLightbox() {
 
   function openLightbox(index) {
     currentIndex = index;
-    const images = getVisibleImages();
-    lightboxImg.src = images[index];
+    show(index);
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
     updateCounter();
@@ -187,14 +192,14 @@ function initLightbox() {
   function prevImage() {
     const images = getVisibleImages();
     currentIndex = (currentIndex - 1 + images.length) % images.length;
-    lightboxImg.src = images[currentIndex];
+    show(currentIndex);
     updateCounter();
   }
 
   function nextImage() {
     const images = getVisibleImages();
     currentIndex = (currentIndex + 1) % images.length;
-    lightboxImg.src = images[currentIndex];
+    show(currentIndex);
     updateCounter();
   }
 

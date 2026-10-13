@@ -22,7 +22,7 @@ css/style.css       — All styles (single file, CSS custom properties)
 js/main.js          — All interactions (nav, mobile menu, lightbox, testimonials, WhatsApp float, pricing estimate)
 images/
   Hero/             — Hero section images
-  portfolio/        — Portfolio work images (work-01.jpg through work-31.jpg)
+  portfolio/        — Portfolio work images (work-XX.jpg; grid order and alt text set in portfolio.html, keep the count a multiple of 5)
   about/            — About page images
   og-image.jpg      — Open Graph preview image
 CNAME               — Custom domain config (roshniravi.com)

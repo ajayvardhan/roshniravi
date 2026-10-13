@@ -1281,7 +1281,7 @@ button {
   .page-head { padding-top: 48px; padding-bottom: 40px; }
   .page-head h1 { font-size: 3.6rem; }
 
-  /* Portfolio: 4 columns with a large tile every fifth photo */
+  /* Portfolio: 4 columns with a large tile every fifth photo (keep the count a multiple of 5) */
   .portfolio-grid {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-flow: dense;
@@ -1295,6 +1295,10 @@ button {
     grid-row: span 2;
     aspect-ratio: auto;
   }
+  /* Large tiles fill the two rows set by the small ones, whatever the photo's ratio */
+  .portfolio-grid .grid-item:nth-child(5n + 1) img { position: absolute; inset: 0; }
+  /* Alternate the large tile left / right */
+  .portfolio-grid .grid-item:nth-child(10n + 6) { grid-column: 3 / span 2; }
   .page-cta { padding-bottom: 80px; }
   .page-cta h2 { font-size: 2.8rem; }
   .lightbox-inner img { max-width: 80vw; max-height: 88vh; }
