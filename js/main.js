@@ -12,8 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initDragScroll();
   initWhatsAppFloat();
-  initPortfolioFilters();
-  initFaqAccordion();
+  initPricing();
 });
 
 /* --- Loading Screen --- */
@@ -185,8 +184,7 @@ function initLightbox() {
   let currentIndex = 0;
 
   function getVisibleItems() {
-    return Array.from(document.querySelectorAll('.portfolio-grid .grid-item'))
-      .filter(item => !item.classList.contains('filter-hidden'));
+    return Array.from(document.querySelectorAll('.portfolio-grid .grid-item'));
   }
 
   function getVisibleImages() {
@@ -233,7 +231,7 @@ function initLightbox() {
   if (grid) {
     grid.addEventListener('click', (e) => {
       const item = e.target.closest('.grid-item');
-      if (!item || item.classList.contains('filter-hidden')) return;
+      if (!item) return;
       const visibleItems = getVisibleItems();
       const index = visibleItems.indexOf(item);
       if (index !== -1) openLightbox(index);
@@ -284,63 +282,6 @@ function initWhatsAppFloat() {
   }
 }
 
-/* --- Portfolio Filters --- */
-function initPortfolioFilters() {
-  const buttons = document.querySelectorAll('.filter-btn');
-  const grid = document.querySelector('.portfolio-grid');
-  if (!buttons.length || !grid) return;
-
-  const items = grid.querySelectorAll('.grid-item');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
-      // Update active button
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      // Filter items
-      items.forEach(item => {
-        if (filter === 'all' || item.dataset.category === filter) {
-          item.classList.remove('filter-hidden');
-        } else {
-          item.classList.add('filter-hidden');
-        }
-      });
-
-      // Lightbox uses event delegation, so filtering works automatically
-    });
-  });
-}
-
-/* --- FAQ Accordion --- */
-function initFaqAccordion() {
-  const items = document.querySelectorAll('.faq-item');
-  if (!items.length) return;
-
-  items.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    const answer = item.querySelector('.faq-answer');
-
-    question.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
-
-      // Close all
-      items.forEach(i => {
-        i.classList.remove('open');
-        i.querySelector('.faq-answer').style.maxHeight = null;
-      });
-
-      // Open clicked (if it was closed)
-      if (!isOpen) {
-        item.classList.add('open');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-      }
-    });
-  });
-}
-
 /* --- Drag to Scroll (Portfolio Strip) --- */
 function initDragScroll() {
   const tracks = document.querySelectorAll('.scroll-track');
@@ -366,4 +307,65 @@ function initDragScroll() {
       track.scrollLeft = scrollLeft - walk;
     });
   });
+}
+
+/* --- Pricing Estimate --- */
+function initPricing() {
+  const root = document.querySelector('[data-pricing]');
+  if (!root) return;
+
+  const items = Array.from(root.querySelectorAll('.price-item[data-key]'));
+  const estimate = root.querySelector('[data-estimate]');
+  const dockTotal = root.querySelector('[data-dock-total]');
+  const dockLink = root.querySelector('[data-dock-link]');
+  const qty = {};
+  items.forEach(item => { qty[item.dataset.key] = Number(item.dataset.start || 0); });
+
+  const inr = n => '₹' + n.toLocaleString('en-IN');
+
+  function render() {
+    const lines = [];
+    items.forEach(item => {
+      const key = item.dataset.key;
+      const count = qty[key];
+      const max = Number(item.dataset.max || 20);
+      item.querySelector('output').textContent = count;
+      item.querySelector('[data-step="-1"]').disabled = count <= 0;
+      item.querySelector('[data-step="1"]').disabled = count >= max;
+      item.classList.toggle('selected', count > 0);
+      if (count) {
+        const label = item.dataset.label + (max > 1 ? ' × ' + count : '');
+        lines.push([label, Number(item.dataset.price) * count]);
+      }
+    });
+
+    const subtotal = lines.reduce((sum, l) => sum + l[1], 0);
+    const gst = Math.round(subtotal * 0.05);
+    const total = subtotal + gst;
+
+    estimate.innerHTML = lines.length
+      ? lines.map(l => `<div class="estimate-line"><span>${l[0]}</span><span class="tnum">${inr(l[1])}</span></div>`).join('') +
+        `<div class="estimate-line muted"><span>GST 5%</span><span class="tnum">${inr(gst)}</span></div>` +
+        `<div class="estimate-line total"><span>Total</span><span class="tnum">${inr(total)}</span></div>`
+      : '<p class="estimate-empty">Add an item above to see your estimate.</p>';
+
+    dockTotal.textContent = inr(total);
+    const message = 'Hi Roshni, I would like to check availability for:\n' +
+      lines.map(l => '• ' + l[0]).join('\n') +
+      '\nEstimate: ' + inr(total) + ' incl. GST';
+    dockLink.href = 'https://wa.me/919600210413?text=' + encodeURIComponent(message);
+    dockLink.setAttribute('aria-disabled', lines.length ? 'false' : 'true');
+  }
+
+  root.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-step]');
+    if (!btn || btn.disabled) return;
+    const item = btn.closest('.price-item');
+    const key = item.dataset.key;
+    const max = Number(item.dataset.max || 20);
+    qty[key] = Math.max(0, Math.min(max, qty[key] + Number(btn.dataset.step)));
+    render();
+  });
+
+  render();
 }

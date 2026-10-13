@@ -13,13 +13,13 @@ Static portfolio website for Roshni Ravi, a professional bridal/event makeup art
 ## File Structure
 
 ```
-index.html          — Home page (hero, featured work strip, testimonials, CTA)
-portfolio.html      — Full portfolio grid with lightbox
-services.html       — Pricing packages and service descriptions
+index.html          — Home page (hero collage, approach, recent brides, about strip, testimonials)
+portfolio.html      — Full portfolio grid with lightbox (no category filters)
+services.html       — Pricing: itemised price list with quantity steppers + live estimate (nav label "Pricing")
 about.html          — Bio and background
 terms.html          — Terms & conditions
 css/style.css       — All styles (single file, CSS custom properties)
-js/main.js          — All interactions (loader, nav, scroll reveals, lightbox, testimonials, drag-scroll)
+js/main.js          — All interactions (nav, mobile menu, lightbox, testimonials, WhatsApp float, pricing estimate)
 images/
   Hero/             — Hero section images
   portfolio/        — Portfolio work images (work-01.jpg through work-31.jpg)
@@ -41,21 +41,23 @@ Then visit `http://localhost:8000`.
 
 ## Design Conventions
 
-- **Dark luxury aesthetic**: black background (`#0a0a0a`), cream text (`#f5f0ea`), gold accents (`#c5a47e`)
-- **Fonts**: Cormorant Garamond (display/headings), Inter (body) — loaded from Google Fonts
+- **Light, phone-first aesthetic**: white (`#ffffff`) and greige bands (`#f3efea`) joined by SVG waves, ink text (`#26211e`), taupe accent (`#8f725f`). The site is designed for phones only; on wider screens the page is a centred 560px column
+- **Fonts**: Cormorant Garamond (uppercase display headings, with one italic taupe accent word via `<em>`), Figtree (body) — loaded via `<link>` in each page head
+- **Logo**: monogram (italic "R" in a thin circle) + "MAKEUP BY / ROSHNI RAVI". The brand name is "Makeup by Roshni Ravi"
+- **Copy**: plain and factual. No wordplay. Pricing page uses labels, not sentences
 - **CSS variables** defined in `:root` in `css/style.css` — use them, don't hardcode colors
-- **Responsive**: mobile-first, all pages must work on mobile
-- **Animations**: scroll-reveal pattern using `.reveal` class + IntersectionObserver in `js/main.js`
+- **Responsive**: phone-only design, test at 390px wide
+- **Animations**: kept minimal (lazy image fade, menu stagger). `.reveal` support remains in `js/main.js` but content sections don't use it
 - **Shared layout**: navbar and footer HTML is duplicated across all pages (no templating). When updating nav or footer, update all 5 HTML files
 
 ## Key Patterns
 
-- **Navigation**: `.navbar` with `.nav-brand`, `.nav-links`, `.hamburger` for mobile
-- **Reveal animations**: add class `reveal` to any section/element to animate on scroll
+- **Navigation**: sticky `.navbar` with `.logo`, `.nav-book`, `.hamburger`; `.nav-links` is a full-screen menu. Don't add `backdrop-filter` to `.navbar` (it traps the fixed menu)
 - **Portfolio images**: named `work-XX.jpg`, optimized to 1200px wide, ~80% quality JPEG
 - **CTAs**: all booking links go to WhatsApp (`https://wa.me/919600210413`)
 - **OG tags**: every page has Open Graph + Twitter Card meta tags
 - **Lightbox**: portfolio page has a custom lightbox for image viewing
+- **Pricing**: each `.price-item[data-key]` carries `data-price`, `data-label`, optional `data-max`/`data-start`; `initPricing()` builds the estimate, GST (5%) and the WhatsApp message. Prices are shown before GST. Outstation is a package variant (+₹20,000 per event), not an add-on. When prices change, also update `terms.html`
 
 ## Git & Deployment
 
