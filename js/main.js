@@ -317,7 +317,7 @@ function initPricing() {
   const items = Array.from(root.querySelectorAll('.price-item[data-key]'));
   const estimate = root.querySelector('[data-estimate]');
   const dockTotal = root.querySelector('[data-dock-total]');
-  const dockLink = root.querySelector('[data-dock-link]');
+  const bookLinks = root.querySelectorAll('[data-dock-link]');
   const qty = {};
   items.forEach(item => { qty[item.dataset.key] = Number(item.dataset.start || 0); });
 
@@ -353,8 +353,10 @@ function initPricing() {
     const message = 'Hi Roshni, I would like to check availability for:\n' +
       lines.map(l => '• ' + l[0]).join('\n') +
       '\nEstimate: ' + inr(total) + ' incl. GST';
-    dockLink.href = 'https://wa.me/919600210413?text=' + encodeURIComponent(message);
-    dockLink.setAttribute('aria-disabled', lines.length ? 'false' : 'true');
+    bookLinks.forEach(link => {
+      link.href = 'https://wa.me/919600210413?text=' + encodeURIComponent(message);
+      link.setAttribute('aria-disabled', lines.length ? 'false' : 'true');
+    });
   }
 
   root.addEventListener('click', (e) => {
