@@ -1,57 +1,25 @@
 /* ============================================
-   Makeup by Roshni Ravi — Premium Interactions
+   Makeup by Roshni Ravi — Interactions
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initLoader();
   initNavbar();
   initMobileMenu();
   initRevealAnimations();
   initLazyFade();
   initTestimonials();
   initLightbox();
-  initDragScroll();
   initWhatsAppFloat();
   initPricing();
 });
-
-/* --- Loading Screen --- */
-function initLoader() {
-  const loader = document.querySelector('.loader');
-  if (!loader) {
-    document.body.classList.add('loaded');
-    return;
-  }
-
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-      document.body.classList.add('loaded');
-    }, 800);
-  });
-
-  // Fallback if load takes too long
-  setTimeout(() => {
-    loader.classList.add('hidden');
-    document.body.classList.add('loaded');
-  }, 3000);
-}
 
 /* --- Navbar --- */
 function initNavbar() {
   const navbar = document.querySelector('.navbar');
   if (!navbar) return;
 
-  let lastScroll = 0;
-
   function onScroll() {
-    const y = window.scrollY;
-    if (y > 80) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-    lastScroll = y;
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -64,18 +32,18 @@ function initMobileMenu() {
   const navLinks = document.querySelector('.nav-links');
   if (!hamburger || !navLinks) return;
 
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
-    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
-  });
+  function setOpen(open) {
+    hamburger.classList.toggle('active', open);
+    hamburger.setAttribute('aria-expanded', open);
+    navLinks.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
 
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('open');
-      document.body.style.overflow = '';
-    });
+  setOpen(false);
+  hamburger.addEventListener('click', () => setOpen(!navLinks.classList.contains('open')));
+  navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false);
   });
 }
 
@@ -182,6 +150,7 @@ function initLightbox() {
   const counterEl = lightbox.querySelector('.lightbox-counter');
 
   let currentIndex = 0;
+  let lastFocus = null;
 
   function getVisibleItems() {
     return Array.from(document.querySelectorAll('.portfolio-grid .grid-item'));
@@ -205,11 +174,14 @@ function initLightbox() {
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
     updateCounter();
+    lastFocus = document.activeElement;
+    if (closeBtn) closeBtn.focus();
   }
 
   function closeLightbox() {
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
   }
 
   function prevImage() {
@@ -229,12 +201,22 @@ function initLightbox() {
   // Use event delegation on the grid for click handling
   const grid = document.querySelector('.portfolio-grid');
   if (grid) {
-    grid.addEventListener('click', (e) => {
+    getVisibleItems().forEach(item => {
+      item.tabIndex = 0;
+      item.setAttribute('role', 'button');
+      item.setAttribute('aria-label', 'View photo');
+    });
+
+    const openFrom = (e) => {
       const item = e.target.closest('.grid-item');
       if (!item) return;
-      const visibleItems = getVisibleItems();
-      const index = visibleItems.indexOf(item);
+      const index = getVisibleItems().indexOf(item);
       if (index !== -1) openLightbox(index);
+    };
+
+    grid.addEventListener('click', openFrom);
+    grid.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFrom(e); }
     });
   }
 
@@ -282,33 +264,6 @@ function initWhatsAppFloat() {
   }
 }
 
-/* --- Drag to Scroll (Portfolio Strip) --- */
-function initDragScroll() {
-  const tracks = document.querySelectorAll('.scroll-track');
-  tracks.forEach(track => {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    track.addEventListener('mousedown', (e) => {
-      isDown = true;
-      startX = e.pageX - track.offsetLeft;
-      scrollLeft = track.scrollLeft;
-    });
-
-    track.addEventListener('mouseleave', () => { isDown = false; });
-    track.addEventListener('mouseup', () => { isDown = false; });
-
-    track.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      const walk = (x - startX) * 1.5;
-      track.scrollLeft = scrollLeft - walk;
-    });
-  });
-}
-
 /* --- Pricing Estimate --- */
 function initPricing() {
   const root = document.querySelector('[data-pricing]');
@@ -318,6 +273,8 @@ function initPricing() {
   const estimate = root.querySelector('[data-estimate]');
   const dockTotal = root.querySelector('[data-dock-total]');
   const bookLinks = root.querySelectorAll('[data-dock-link]');
+  const dock = root.querySelector('.price-dock');
+  const summary = root.querySelector('.price-summary');
   const qty = {};
   items.forEach(item => { qty[item.dataset.key] = Number(item.dataset.start || 0); });
 
@@ -368,6 +325,13 @@ function initPricing() {
     qty[key] = Math.max(0, Math.min(max, qty[key] + Number(btn.dataset.step)));
     render();
   });
+
+  // Hide the phone dock once the estimate is in view (or scrolled past), so the total isn't shown twice
+  if (dock && summary) {
+    new IntersectionObserver(([entry]) => {
+      dock.classList.toggle('hidden', entry.isIntersecting || entry.boundingClientRect.top < 0);
+    }, { rootMargin: '0px 0px 80px 0px' }).observe(summary);
+  }
 
   render();
 }

@@ -16,9 +16,9 @@
   --white: #ffffff;
   --band: #f3efea;
   --ink: #26211e;
-  --muted: #7d736c;
+  --muted: #6f665f;
   --hair: #e7e1db;
-  --taupe: #8f725f;
+  --taupe: #7f6453;
   --whatsapp: #25d366;
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -111,7 +111,7 @@ button {
 
 .eyebrow {
   display: block;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -134,7 +134,7 @@ button {
   padding: 15px 22px;
   background: var(--ink);
   color: var(--white);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -145,7 +145,7 @@ button {
 
 .text-link {
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -186,7 +186,7 @@ button {
 }
 
 .logo-text small {
-  font-size: 0.5rem;
+  font-size: 0.56rem;
   font-weight: 500;
   letter-spacing: 0.45em;
   text-transform: uppercase;
@@ -233,7 +233,7 @@ button {
 
 .nav-book {
   white-space: nowrap;
-  font-size: 0.6rem;
+  font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -501,6 +501,8 @@ button {
   text-align: center;
 }
 
+.testimonials-eyebrow { margin-bottom: 14px; }
+
 .testimonial-slide { display: none; }
 
 .testimonial-slide.active {
@@ -522,7 +524,7 @@ button {
 
 .testimonial-author {
   margin-top: 16px;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -608,6 +610,13 @@ button {
   object-position: 50% 25%;
 }
 
+/* Closing prompt under the grid */
+.page-cta { padding: 12px var(--gutter) 48px; }
+
+.page-cta h2 { font-size: 1.9rem; }
+
+.page-cta .lead { margin-top: 10px; }
+
 /* Lightbox */
 .lightbox {
   position: fixed;
@@ -674,7 +683,7 @@ button {
 }
 
 .price-tags span {
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -682,32 +691,22 @@ button {
   padding: 7px 10px;
 }
 
-.price-tags span:first-child {
-  background: var(--ink);
-  color: var(--white);
-}
-
 .price-howto {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin-top: 16px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--muted);
+  max-width: 44ch;
 }
 
-.price-howto i {
-  font-style: normal;
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--muted);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 0.8rem;
-}
+.price-howto strong { color: var(--ink); font-weight: 600; }
 
-.price-section { padding: 18px var(--gutter) 0; }
+.price-howto + .price-howto { margin-top: 4px; }
+
+.price-section { padding: 30px var(--gutter) 0; }
+
+.price-head {
+  font-size: 1.5rem;
+}
 
 .price-item {
   display: flex;
@@ -728,17 +727,6 @@ button {
   font-size: 0.95rem;
 }
 
-.price-item.selected .name::after {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--taupe);
-  margin-left: 8px;
-  vertical-align: middle;
-}
-
 .price-item .amount {
   font-family: var(--font-display);
   font-weight: 500;
@@ -746,21 +734,15 @@ button {
 }
 
 .price-item .unit {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--muted);
   margin-left: 4px;
 }
 
 .price-item .detail {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--taupe);
-}
-
-.price-item .on-day {
-  font-size: 0.75rem;
-  color: var(--muted);
-  text-align: right;
 }
 
 .stepper {
@@ -768,15 +750,16 @@ button {
   display: flex;
   align-items: center;
   border: 1px solid var(--ink);
-  height: 36px;
+  height: 44px;
+  transition: background 0.2s, color 0.2s;
 }
 
 .stepper button {
-  width: 36px;
-  height: 34px;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1;
   transition: background 0.2s;
 }
@@ -794,45 +777,49 @@ button {
   font-weight: 600;
 }
 
+/* Selected rows: the stepper fills in so it's clear what's in the estimate */
+.price-item.selected .stepper {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.price-item.selected .stepper button:active { background: rgba(255, 255, 255, 0.12); }
+
 .includes {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px 12px;
-  margin: 14px 0 4px;
-  padding: 14px;
+  padding: 16px;
   background: var(--band);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
 }
 
-.includes .eyebrow { grid-column: 1 / -1; }
+.includes .eyebrow { grid-column: 1 / -1; margin-bottom: 2px; }
+
+.includes li:not(.eyebrow):not(.not-included)::before {
+  content: '✓  ';
+  color: var(--taupe);
+}
 
 .includes .not-included {
   grid-column: 1 / -1;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   padding-top: 4px;
 }
 
-.price-included { padding-top: 6px; }
-
-.event-note {
-  margin-top: 12px;
-  font-size: 0.82rem;
-  color: var(--muted);
-}
-
-.event-note strong { color: var(--ink); font-weight: 600; }
+.price-included { padding-top: 4px; }
 
 .section-tag {
   display: block;
   margin-top: 2px;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.05rem;
-  color: var(--ink);
+  font-size: 1.1rem;
+  color: var(--muted);
 }
 
-.book-steps { padding: 18px var(--gutter) 0; }
+.book-steps { padding: 26px var(--gutter) 0; }
 
 .book-steps ol {
   list-style: none;
@@ -847,7 +834,7 @@ button {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
 }
 
 .book-steps li::before {
@@ -858,35 +845,41 @@ button {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--taupe);
 }
 
 .book-tip {
   display: block;
   margin-top: 10px;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--taupe);
 }
 
-.includes li:not(.eyebrow):not(.not-included)::before {
-  content: '✓  ';
-  color: var(--taupe);
-}
+.price-wave { margin-top: 28px; }
 
 .estimate { padding: 0 var(--gutter) 6px; }
 
 .estimate h2 {
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   margin-bottom: 12px;
 }
 
 .estimate-line {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 12px;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   padding: 4px 0;
+}
+
+/* Amounts use the same display face as the price list */
+.estimate-line .tnum {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  white-space: nowrap;
 }
 
 .estimate-line.muted { color: var(--muted); }
@@ -899,23 +892,33 @@ button {
   font-size: 1rem;
 }
 
+.estimate-line.total .tnum { font-size: 1.6rem; }
+
 .estimate-empty {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--muted);
+}
+
+.estimate-cta {
+  display: flex;
+  margin: 18px var(--gutter) 0;
 }
 
 .price-notes {
   display: grid;
   gap: 3px;
-  padding: 14px var(--gutter) 28px;
-  font-size: 0.78rem;
+  padding: 18px var(--gutter) 32px;
+  font-size: 0.8rem;
   color: var(--muted);
 }
 
 .price-notes a { text-decoration: underline; text-underline-offset: 3px; }
 
+/* Phone: running total pinned to the bottom until the estimate scrolls into view */
 .price-dock {
-  position: sticky;
+  position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
   z-index: var(--z-float);
   display: flex;
@@ -927,13 +930,16 @@ button {
   -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--hair);
   box-shadow: 0 -10px 30px -22px rgba(40, 30, 20, 0.4);
+  transition: transform 0.4s var(--ease);
 }
+
+.price-dock.hidden { transform: translateY(110%); }
 
 .price-dock .total { flex: 1; min-width: 0; }
 
 .price-dock small {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -948,12 +954,18 @@ button {
   line-height: 1.1;
 }
 
-.estimate-cta { display: none; }
-
 .price-dock .btn[aria-disabled="true"],
 .estimate-cta[aria-disabled="true"] {
   opacity: 0.35;
   pointer-events: none;
+}
+
+/* Pricing ends in its greige summary on phones; the footer joins it with a hairline */
+.wave-footer { display: none; }
+
+.footer-joined .footer-main {
+  border-top: 1px solid var(--hair);
+  padding-top: 26px;
 }
 
 /* ============================================
@@ -1022,7 +1034,7 @@ button {
 .terms-content { padding: 0 var(--gutter) 40px; }
 
 .terms-updated {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--muted);
   margin-bottom: 8px;
 }
@@ -1079,11 +1091,12 @@ button {
 .footer-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 20px;
+  justify-content: space-between;
+  gap: 8px 12px;
   margin-top: 24px;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -1113,7 +1126,7 @@ button {
   border-top: 1px solid var(--hair);
   display: flex;
   justify-content: space-between;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--muted);
 }
 
@@ -1273,7 +1286,7 @@ button {
     grid-template-columns: repeat(4, 1fr);
     grid-auto-flow: dense;
     gap: 14px;
-    padding-bottom: 80px;
+    padding-bottom: 56px;
   }
   .portfolio-grid .grid-item img { transition: transform 0.8s var(--ease); }
   .portfolio-grid .grid-item:hover img { transform: scale(1.04); }
@@ -1282,6 +1295,8 @@ button {
     grid-row: span 2;
     aspect-ratio: auto;
   }
+  .page-cta { padding-bottom: 80px; }
+  .page-cta h2 { font-size: 2.8rem; }
   .lightbox-inner img { max-width: 80vw; max-height: 88vh; }
   .lightbox-nav { top: 50%; bottom: auto; transform: translateY(-50%); width: 52px; height: 52px; }
   .lightbox-prev { left: 32px; }
@@ -1298,9 +1313,9 @@ button {
   main[data-pricing] > .wave,
   main[data-pricing] > .price-dock { display: none; }
   .price-list { grid-column: 1; }
-  .price-section { padding-left: 0; padding-right: 0; padding-top: 28px; }
+  .price-section { padding-left: 0; padding-right: 0; padding-top: 40px; }
   .price-section:first-child { padding-top: 0; }
-  .price-included .includes { margin-top: 0; }
+  .price-head { font-size: 1.9rem; }
   .price-item { padding: 18px 0; }
   .price-item .amount { font-size: 1.5rem; }
   .price-summary {
@@ -1314,10 +1329,12 @@ button {
   .price-summary .estimate,
   .price-summary .book-steps,
   .price-summary .price-notes { padding-left: 28px; padding-right: 28px; }
-  .estimate-cta {
-    display: flex;
-    margin: 0 28px;
-  }
+  .estimate-cta { margin: 18px 28px 0; }
+  .price-notes { padding-bottom: 0; }
+
+  /* On desktop the pricing page ends in white, so it gets the wave into the footer */
+  .wave-footer { display: block; }
+  .wave-footer + .footer-joined .footer-main { border-top: 0; padding-top: 0; }
 
   /* About */
   .people { gap: 56px; padding: 0 var(--gutter); }
@@ -1344,7 +1361,9 @@ button {
     gap: 56px;
   }
   .footer-links, .footer-contact { margin-top: 0; }
+  .footer-links { gap: 8px 24px; letter-spacing: 0.18em; }
   .footer-contact { gap: 8px; }
+  .footer-joined .footer-main { padding-top: 40px; }
 }
 
 /* ============================================

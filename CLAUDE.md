@@ -41,10 +41,11 @@ Then visit `http://localhost:8000`.
 
 ## Design Conventions
 
-- **Light, phone-first aesthetic**: white (`#ffffff`) and greige bands (`#f3efea`) joined by SVG waves, ink text (`#26211e`), taupe accent (`#8f725f`). Designed phone-first (most visitors), with a wide layout from 960px: centred 1180px content column, full-bleed bands
+- **Light, phone-first aesthetic**: white (`#ffffff`) and greige bands (`#f3efea`) joined by SVG waves, ink text (`#26211e`), taupe accent (`#7f6453`; muted text `#6f665f`; both pass WCAG AA on white and greige). Designed phone-first (most visitors), with a wide layout from 960px: centred 1180px content column, full-bleed bands
 - **Fonts**: Cormorant Garamond (uppercase display headings, with one italic taupe accent word via `<em>`), Figtree (body) — loaded via `<link>` in each page head
 - **Logo**: monogram (italic "R" in a thin circle) + "MAKEUP BY / ROSHNI RAVI". The brand name is "Makeup by Roshni Ravi"
-- **Copy**: plain and factual. No wordplay. Pricing page uses labels, not sentences
+- **Copy**: plain and factual. No wordplay. Pricing page uses labels, not sentences. First person "I" (Roshni); "we" only where Roshni and Sainidhi are described together
+- **Type floor**: no text below ~11px (0.68rem); tap targets 44px
 - **CSS variables** defined in `:root` in `css/style.css` — use them, don't hardcode colors
 - **Responsive**: phone-first base styles; `@media (min-width: 600px)` for tablet tweaks and `@media (min-width: 960px)` for the desktop layout (inline nav, two-column hero/approach, 4-column portfolio, pricing list + sticky estimate). On desktop `--gutter` centres content. Test at 390px first, then 768px and 1280px
 - **Animations**: kept minimal (lazy image fade, menu stagger). `.reveal` support remains in `js/main.js` but content sections don't use it
