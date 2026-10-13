@@ -15,7 +15,7 @@ Static portfolio website for Roshni Ravi, a professional bridal/event makeup art
 ```
 index.html          — Home page (hero collage, approach, recent brides, about strip, testimonials)
 portfolio.html      — Full portfolio grid with lightbox (no category filters)
-services.html       — Pricing: itemised price list with quantity steppers + live estimate (nav label "Pricing")
+services.html       — Pricing: package cards, inclusions, extras menu, then an "Estimate your total" calculator (nav label "Pricing")
 about.html          — Bio and background
 terms.html          — Terms & conditions
 css/style.css       — All styles (single file, CSS custom properties)
@@ -47,7 +47,7 @@ Then visit `http://localhost:8000`.
 - **Copy**: plain and factual. No wordplay. Pricing page uses labels, not sentences. First person "I" (Roshni); "we" only where Roshni and Sainidhi are described together
 - **Type floor**: no text below ~11px (0.68rem); tap targets 44px
 - **CSS variables** defined in `:root` in `css/style.css` — use them, don't hardcode colors
-- **Responsive**: phone-first base styles; `@media (min-width: 600px)` for tablet tweaks and `@media (min-width: 960px)` for the desktop layout (inline nav, two-column hero/approach, 4-column portfolio, pricing list + sticky estimate). On desktop `--gutter` centres content. Test at 390px first, then 768px and 1280px
+- **Responsive**: phone-first base styles; a `max-width: 389px` block tightens the header for 360px/320px phones (check for horizontal scroll there after any nav change); `@media (min-width: 600px)` for tablet tweaks and `@media (min-width: 960px)` for the desktop layout (inline nav, two-column hero/approach, 4-column portfolio, pricing packages beside extras, calculator inputs beside a sticky total). On desktop `--gutter` centres content. Test at 390px first, then 768px and 1280px
 - **Animations**: kept minimal (lazy image fade, menu stagger). `.reveal` support remains in `js/main.js` but content sections don't use it
 - **Shared layout**: navbar and footer HTML is duplicated across all pages (no templating). When updating nav or footer, update all 5 HTML files
 
@@ -58,7 +58,7 @@ Then visit `http://localhost:8000`.
 - **CTAs**: all booking links go to WhatsApp (`https://wa.me/919600210413`)
 - **OG tags**: every page has Open Graph + Twitter Card meta tags
 - **Lightbox**: portfolio page has a custom lightbox for image viewing
-- **Pricing**: each `.price-item[data-key]` carries `data-price`, `data-label`, optional `data-max`/`data-start`; `initPricing()` builds the estimate, GST (5%) and the WhatsApp message. Prices are shown before GST. Outstation is a package variant (+₹20,000 per event), not an add-on. When prices change, also update `terms.html`
+- **Pricing**: the page leads with information (what it costs, what's included); the calculator is a secondary section (`#estimate`), with no step numbers or usage hints. Prices live in two places on the page: the display (`.package`, `.menu`) and the calculator inputs (`data-price` on the finish/location radios and each `.extra[data-key]`, optional `data-max`). The events counter (`.extra[data-key="events"]`, min 1) sets the number of looks; `initPricing()` builds the total, GST (5%) and the WhatsApp message. Prices are shown before GST. Outstation is +₹20,000 per look, not an add-on. When prices change, update both places on the page and `terms.html`
 
 ## Git & Deployment
 
