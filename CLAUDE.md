@@ -13,7 +13,7 @@ Static portfolio website for Roshni Ravi, a professional bridal/event makeup art
 ## File Structure
 
 ```
-index.html          — Home page (hero collage, approach, recent brides, about strip, testimonials)
+index.html          — Home page (hero collage, recent brides, about strip, testimonials)
 portfolio.html      — Full portfolio grid with lightbox (no category filters)
 services.html       — Pricing: package cards, inclusions, extras menu, then an "Estimate your total" calculator (nav label "Pricing")
 about.html          — Bio and background
@@ -47,7 +47,7 @@ Then visit `http://localhost:8000`.
 - **Copy**: plain and factual. No wordplay. Pricing page uses labels, not sentences. First person "I" (Roshni); "we" only where Roshni and Sainidhi are described together
 - **Type floor**: no text below ~11px (0.68rem); tap targets 44px
 - **CSS variables** defined in `:root` in `css/style.css` — use them, don't hardcode colors
-- **Responsive**: phone-first base styles; a `max-width: 389px` block tightens the header for 360px/320px phones (check for horizontal scroll there after any nav change); `@media (min-width: 600px)` for tablet tweaks and `@media (min-width: 960px)` for the desktop layout (inline nav, two-column hero/approach, 4-column portfolio, pricing packages beside extras, calculator inputs beside a sticky total). On desktop `--gutter` centres content. Test at 390px first, then 768px and 1280px
+- **Responsive**: phone-first base styles; a `max-width: 389px` block tightens the header for 360px/320px phones (check for horizontal scroll there after any nav change); `@media (min-width: 600px)` for tablet tweaks and `@media (min-width: 960px)` for the desktop layout (inline nav, two-column hero, 4-column portfolio, pricing packages beside extras, calculator inputs beside a sticky total). On desktop `--gutter` centres content. Test at 390px first, then 768px and 1280px
 - **Animations**: kept minimal (lazy image fade, menu stagger). `.reveal` support remains in `js/main.js` but content sections don't use it
 - **Shared layout**: navbar and footer HTML is duplicated across all pages (no templating). When updating nav or footer, update all 5 HTML files
 
