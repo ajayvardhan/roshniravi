@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initTestimonials();
   initLightbox();
   initWhatsAppFloat();
-  initPricing();
 });
 
 /* --- Navbar --- */
@@ -267,82 +266,4 @@ function initWhatsAppFloat() {
     );
     observer.observe(footer);
   }
-}
-
-/* --- Pricing Estimate --- */
-function initPricing() {
-  const root = document.querySelector('[data-pricing]');
-  if (!root) return;
-
-  const form = root.querySelector('[data-builder]');
-  const counters = Array.from(root.querySelectorAll('.extra[data-key]'));
-  const extras = counters.filter(c => c.dataset.key !== 'events');
-  const estimate = root.querySelector('[data-estimate]');
-  const total = root.querySelector('[data-total]');
-  const bookLink = root.querySelector('[data-book-link]');
-  const qty = {};
-  counters.forEach(c => { qty[c.dataset.key] = Number(c.dataset.start || 0); });
-
-  const inr = n => '₹' + n.toLocaleString('en-IN');
-  const line = (label, amount, cls = '') =>
-    `<div class="estimate-line ${cls}"><span>${label}</span><span class="tnum">${inr(amount)}</span></div>`;
-  const limits = c => [Number(c.dataset.min || 0), Number(c.dataset.max || 20)];
-
-  function render() {
-    const finish = form.querySelector('[name="finish"]:checked');
-    const where = form.querySelector('[name="where"]:checked');
-    const outstation = where.value === 'out';
-    const events = qty.events;
-    const perLook = Number(finish.dataset.price) + Number(where.dataset.price);
-
-    counters.forEach(c => {
-      const [min, max] = limits(c);
-      const count = qty[c.dataset.key];
-      c.querySelector('output').textContent = count;
-      c.querySelector('[data-step="-1"]').disabled = count <= min;
-      c.querySelector('[data-step="1"]').disabled = count >= max;
-      c.classList.toggle('selected', count > 0);
-    });
-
-    const eventsLabel = events + (events > 1 ? ' events' : ' event');
-    const lines = [line(`${finish.dataset.label} · ${eventsLabel}${outstation ? ' · outstation' : ''}`, perLook * events)];
-    const extraNames = [];
-    let subtotal = perLook * events;
-    extras.forEach(c => {
-      const count = qty[c.dataset.key];
-      if (!count) return;
-      const label = c.dataset.label + (limits(c)[1] > 1 ? ' × ' + count : '');
-      const amount = Number(c.dataset.price) * count;
-      lines.push(line(label, amount));
-      extraNames.push(label);
-      subtotal += amount;
-    });
-
-    const gst = Math.round(subtotal * 0.05);
-    const sum = subtotal + gst;
-    estimate.innerHTML = lines.join('') + line('GST 5%', gst, 'muted');
-    total.textContent = inr(sum);
-
-    const message = [
-      'Hi Roshni, I would like to check availability.',
-      'Wedding date: ',
-      'Finish: ' + finish.dataset.label + (outstation ? ' (outstation)' : ' (Chennai)'),
-      'Events: ' + events,
-      extraNames.length ? 'Extras: ' + extraNames.join(', ') : '',
-      'Estimate: ' + inr(sum) + ' incl. GST'
-    ].filter(Boolean).join('\n');
-    bookLink.href = 'https://wa.me/919600210413?text=' + encodeURIComponent(message);
-  }
-
-  form.addEventListener('change', render);
-  form.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-step]');
-    if (!btn || btn.disabled) return;
-    const c = btn.closest('.extra');
-    const [min, max] = limits(c);
-    qty[c.dataset.key] = Math.max(min, Math.min(max, qty[c.dataset.key] + Number(btn.dataset.step)));
-    render();
-  });
-
-  render();
 }

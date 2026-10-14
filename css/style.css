@@ -633,10 +633,8 @@ button {
 }
 
 /* ============================================
-   Pricing — prices first, then an optional estimate
+   Pricing — prices, what's included, extras
    ============================================ */
-.price-jump { margin-top: 16px; }
-
 .price-info { padding: 0 var(--gutter); }
 
 .packages {
@@ -678,6 +676,56 @@ button {
   font-size: 0.82rem;
   color: var(--taupe);
   line-height: 1.35;
+}
+
+/* Outstation: a full-width row under the packages, not a footnote */
+.outstation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
+  padding: 16px;
+  border: 1px solid var(--taupe);
+}
+
+.outstation-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.outstation-name small {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.outstation-price {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.outstation-price small {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted);
 }
 
 .package-meta {
@@ -813,179 +861,16 @@ button {
   text-underline-offset: 3px;
 }
 
-/* ---- Estimate calculator ---- */
+/* ---- Closing prompt in a band ---- */
 .price-wave { margin-top: 40px; }
 
-.calculator {
-  padding: 8px var(--gutter) 40px;
-  scroll-margin-top: 68px;
-}
+.price-cta { padding: 8px var(--gutter) 44px; }
 
-.calculator h2 { font-size: 1.9rem; }
+.price-cta h2 { font-size: 1.9rem; }
 
-.calc-inputs input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
+.price-cta .lead { margin-top: 10px; }
 
-.calc-label {
-  display: block;
-  margin: 22px 0 10px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--taupe);
-}
-
-.toggle {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 18px;
-  border: 1px solid var(--ink);
-  background: var(--white);
-}
-
-.toggle + .toggle { margin-top: 8px; }
-
-.toggle label { cursor: pointer; }
-
-.toggle span {
-  display: grid;
-  place-items: center;
-  min-height: 46px;
-  font-size: 0.88rem;
-  font-weight: 500;
-  transition: background 0.2s, color 0.2s;
-}
-
-.toggle input:checked + span {
-  background: var(--ink);
-  color: var(--white);
-}
-
-/* Events: the main counter, set apart from the extras */
-.events-count {
-  margin-top: 8px;
-  padding: 12px 6px 12px 16px;
-}
-
-.events-count .extra-name { font-size: 1rem; }
-
-.extra-name small {
-  display: block;
-  font-size: 0.76rem;
-  font-weight: 400;
-  color: var(--muted);
-}
-
-.toggle input:focus-visible + span {
-  outline: 2px solid var(--taupe);
-  outline-offset: 3px;
-}
-
-.extras {
-  display: grid;
-  gap: 2px;
-}
-
-.extra {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 6px 6px 16px;
-  background: var(--white);
-}
-
-.extra-name {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.stepper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid var(--ink);
-  height: 44px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.stepper button {
-  width: 44px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  font-size: 1.15rem;
-  line-height: 1;
-  transition: background 0.2s;
-}
-
-.stepper button:active { background: var(--band); }
-
-.stepper button:disabled {
-  opacity: 0.25;
-  cursor: default;
-}
-
-.stepper output {
-  min-width: 24px;
-  text-align: center;
-  font-weight: 600;
-}
-
-.extra.selected .stepper {
-  background: var(--ink);
-  color: var(--white);
-}
-
-.extra.selected .stepper button:active { background: rgba(255, 255, 255, 0.12); }
-
-.estimate {
-  margin-top: 28px;
-  padding: 22px 18px;
-  background: var(--white);
-}
-
-.estimate .calc-label { margin-top: 0; margin-bottom: 4px; }
-
-.estimate-total {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 2.9rem;
-  line-height: 1;
-}
-
-.estimate-lines { margin-top: 16px; }
-
-
-.estimate-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
-  padding: 3px 0;
-  font-size: 0.88rem;
-}
-
-.estimate-line .tnum {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.05rem;
-  white-space: nowrap;
-}
-
-.estimate-line.muted { color: var(--muted); }
-
-
-.estimate-cta {
-  display: flex;
-  margin-top: 20px;
-}
-
+.price-cta .btn { margin-top: 22px; }
 
 /* Pages that end in a greige band: the footer joins it with a hairline */
 .footer-joined .footer-main {
@@ -1334,37 +1219,32 @@ button {
   .lightbox-prev { left: 32px; }
   .lightbox-next { right: 32px; }
 
-  /* Pricing: packages and add-ons side by side; calculator inputs beside the total */
+  /* Pricing: packages and add-ons side by side */
   .price-info {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: auto auto auto auto 1fr;
     column-gap: 72px;
     align-items: start;
   }
   .price-info > .packages,
+  .price-info > .outstation,
   .price-info > .package-meta,
   .price-info > .included { grid-column: 1; }
-  .addons { grid-column: 2; grid-row: 1 / span 4; margin-top: 0; }
+  .addons { grid-column: 2; grid-row: 1 / span 5; margin-top: 0; }
   .addons h2 { font-size: 2.4rem; }
   .good-to-know { grid-column: 1; }
   .packages { gap: 16px; }
   .package { padding: 26px 24px; }
   .package-name { font-size: 1.5rem; }
   .package-price { font-size: 2.4rem; }
+  .outstation { margin-top: 16px; padding: 22px 24px; }
+  .outstation-name { font-size: 1.5rem; }
+  .outstation-price { font-size: 2rem; }
   .menu div { padding: 14px 0; }
   .price-wave { margin-top: 72px; }
-  .calculator { padding-top: 24px; padding-bottom: 80px; scroll-margin-top: 88px; }
-  .calculator h2 { font-size: 2.8rem; }
-  .calc-grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    column-gap: 72px;
-    align-items: start;
-  }
-  .toggle { display: inline-grid; width: calc(50% - 6px); }
-  .toggle + .toggle { margin-left: 8px; }
-  .estimate { position: sticky; top: 112px; margin-top: 18px; padding: 28px; }
+  .price-cta { padding-top: 24px; padding-bottom: 80px; }
+  .price-cta h2 { font-size: 2.8rem; }
 
   /* About */
   .people { gap: 56px; padding: 0 var(--gutter); }

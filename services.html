@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <title>Pricing | Makeup by Roshni Ravi</title>
-  <meta name="description" content="All-inclusive bridal makeup and hair packages by Roshni Ravi. HD from ₹45,000 and airbrush from ₹50,000 per look, plus 5% GST. Build your package and see the total.">
+  <meta name="description" content="All-inclusive bridal makeup and hair packages by Roshni Ravi. HD from ₹45,000 and airbrush from ₹50,000 per look, plus 5% GST.">
   <!-- Open Graph -->
   <meta property="og:title" content="Pricing | Makeup by Roshni Ravi">
   <meta property="og:description" content="All-inclusive bridal makeup and hair packages. HD from ₹45,000, airbrush from ₹50,000 per event, plus 5% GST.">
@@ -53,11 +53,10 @@
     </div>
   </nav>
 
-  <main data-pricing>
+  <main>
     <section class="page-head">
       <span class="eyebrow">Pricing</span>
       <h1 class="display">Bridal <em>pricing</em></h1>
-      <a href="#estimate" class="text-link price-jump">Estimate your total</a>
     </section>
 
     <section class="price-info">
@@ -75,7 +74,11 @@
           <span class="package-note">Longest wear, best in heat</span>
         </div>
       </div>
-      <p class="package-meta">Each event is one look &middot; Outstation +&#8377;20,000 per look &middot; Prices + 5% GST</p>
+      <div class="outstation">
+          <span class="outstation-name">Outstation<small>Outside Chennai. You arrange travel and stay for the team.</small></span>
+          <span class="outstation-price tnum">+&#8377;20,000<small>per look</small></span>
+        </div>
+        <p class="package-meta">Each event is one look &middot; Prices + 5% GST</p>
 
       <div class="included">
         <span class="eyebrow">Every look includes</span>
@@ -107,63 +110,16 @@
           <li>Book 2+ weeks ahead. Nov&ndash;Feb fills fast.</li>
           <li>A 50% advance confirms your date.</li>
           <li>Touch-ups during the event aren't included.</li>
-          <li>Outstation: you arrange travel and stay for the team.</li>
         </ul>
         <a href="terms.html">Terms &amp; conditions</a>
       </details>
     </section>
 
     <svg class="wave wave-into-band price-wave" viewBox="0 0 390 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 16 C 95 0, 175 32, 265 14 S 360 6, 390 14 L390 30 L0 30Z"/></svg>
-    <section class="band calculator" id="estimate">
-      <h2 class="display">Estimate your <em>total</em></h2>
-      <div class="calc-grid">
-        <form class="calc-inputs" data-builder onsubmit="return false">
-          <div class="toggle" role="radiogroup" aria-label="Finish">
-            <label><input type="radio" name="finish" value="hd" data-price="45000" data-label="HD" checked><span>HD</span></label>
-            <label><input type="radio" name="finish" value="ab" data-price="50000" data-label="Airbrush"><span>Airbrush</span></label>
-          </div>
-          <div class="toggle" role="radiogroup" aria-label="Location">
-            <label><input type="radio" name="where" value="chennai" data-price="0" checked><span>In Chennai</span></label>
-            <label><input type="radio" name="where" value="out" data-price="20000"><span>Outstation</span></label>
-          </div>
-
-          <div class="events-count extra" data-key="events" data-min="1" data-start="1" data-max="10">
-            <span class="extra-name">Events<small>Muhurtham, reception, mehendi&hellip; each is one look</small></span>
-            <div class="stepper"><button type="button" data-step="-1" aria-label="One less event">&minus;</button><output class="tnum">1</output><button type="button" data-step="1" aria-label="One more event">+</button></div>
-          </div>
-
-          <span class="calc-label">Extras</span>
-          <div class="extras">
-          <div class="extra" data-key="trial" data-price="8000" data-label="Trial" data-max="1">
-            <span class="extra-name">Trial</span>
-            <div class="stepper"><button type="button" data-step="-1" aria-label="Remove Trial">&minus;</button><output class="tnum">0</output><button type="button" data-step="1" aria-label="Add Trial">+</button></div>
-          </div>
-          <div class="extra" data-key="guest" data-price="20000" data-label="Family &amp; guests">
-            <span class="extra-name">Family &amp; guests</span>
-            <div class="stepper"><button type="button" data-step="-1" aria-label="Remove Family &amp; guests">&minus;</button><output class="tnum">0</output><button type="button" data-step="1" aria-label="Add Family &amp; guests">+</button></div>
-          </div>
-          <div class="extra" data-key="hair" data-price="12000" data-label="Hair change">
-            <span class="extra-name">Hair change</span>
-            <div class="stepper"><button type="button" data-step="-1" aria-label="Remove Hair change">&minus;</button><output class="tnum">0</output><button type="button" data-step="1" aria-label="Add Hair change">+</button></div>
-          </div>
-          <div class="extra" data-key="drape" data-price="2500" data-label="Extra drape">
-            <span class="extra-name">Extra drape</span>
-            <div class="stepper"><button type="button" data-step="-1" aria-label="Remove Extra drape">&minus;</button><output class="tnum">0</output><button type="button" data-step="1" aria-label="Add Extra drape">+</button></div>
-          </div>
-          <div class="extra" data-key="madisar" data-price="3500" data-label="Madisar drape">
-            <span class="extra-name">Madisar drape</span>
-            <div class="stepper"><button type="button" data-step="-1" aria-label="Remove Madisar drape">&minus;</button><output class="tnum">0</output><button type="button" data-step="1" aria-label="Add Madisar drape">+</button></div>
-          </div>
-          </div>
-        </form>
-
-        <div class="estimate" aria-live="polite">
-          <span class="calc-label">Total incl. GST</span>
-          <strong class="estimate-total tnum" data-total>&#8377;47,250</strong>
-          <div class="estimate-lines" data-estimate></div>
-          <a href="https://wa.me/919600210413" target="_blank" rel="noopener" class="btn estimate-cta" data-book-link>Check my date on WhatsApp</a>
-        </div>
-      </div>
+    <section class="band price-cta">
+      <h2 class="display">Check your <em>date</em></h2>
+      <p class="lead">Send your wedding date, events and city. I'll confirm availability and send an exact quote.</p>
+      <a href="https://wa.me/919600210413?text=Hi%20Roshni%2C%20I%27d%20like%20to%20check%20availability.%0AWedding%20date%3A%20%0AEvents%3A%20%0ACity%3A%20" target="_blank" rel="noopener" class="btn">Check date on WhatsApp</a>
     </section>
   </main>
 
