@@ -678,52 +678,40 @@ button {
   line-height: 1.35;
 }
 
-/* Outstation: a full-width row under the packages, not a footnote */
+/* Outstation: its own row under the packages, sized like an extras line */
 .outstation {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   gap: 16px;
   margin-top: 10px;
-  padding: 16px;
-  border: 1px solid var(--taupe);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--hair);
 }
 
 .outstation-name {
-  font-family: var(--font-display);
+  font-size: 0.92rem;
   font-weight: 500;
-  font-size: 1.25rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1.2;
+  line-height: 1.35;
 }
 
 .outstation-name small {
   display: block;
-  margin-top: 4px;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
   color: var(--muted);
-  line-height: 1.35;
 }
 
 .outstation-price {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 1.6rem;
-  line-height: 1;
+  font-size: 1.2rem;
   white-space: nowrap;
-  text-align: right;
 }
 
 .outstation-price small {
-  display: block;
-  margin-top: 4px;
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   font-weight: 400;
   color: var(--muted);
 }
@@ -1238,9 +1226,7 @@ button {
   .package { padding: 26px 24px; }
   .package-name { font-size: 1.5rem; }
   .package-price { font-size: 2.4rem; }
-  .outstation { margin-top: 16px; padding: 22px 24px; }
-  .outstation-name { font-size: 1.5rem; }
-  .outstation-price { font-size: 2rem; }
+  .outstation { margin-top: 16px; padding: 14px 0; }
   .menu div { padding: 14px 0; }
   .price-wave { margin-top: 72px; }
   .price-cta { padding-top: 24px; padding-bottom: 80px; }

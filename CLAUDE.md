@@ -58,7 +58,7 @@ Then visit `http://localhost:8000`.
 - **CTAs**: all booking links go to WhatsApp (`https://wa.me/919600210413`)
 - **OG tags**: every page has Open Graph + Twitter Card meta tags
 - **Lightbox**: portfolio page has a custom lightbox for image viewing
-- **Pricing**: information only, no calculator (removed so the page never shows a large running total or fixes a price before Roshni quotes). Prices are shown before GST (5%). Outstation is +₹20,000 per look, not an add-on. The closing WhatsApp link pre-fills date/events/city. When prices change, update `services.html` and `terms.html`
+- **Pricing**: information only, no calculator (removed so the page never shows a large running total or fixes a price before Roshni quotes). Prices are shown before GST (5%). Prices are per event (muhurtham and reception are two events). Outstation is +₹20,000 per event, shown as its own row under the packages, not an add-on. The closing WhatsApp link pre-fills date/events/city. When prices change, update `services.html` and `terms.html`
 
 ## Git & Deployment
 
