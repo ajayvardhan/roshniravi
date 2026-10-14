@@ -151,6 +151,21 @@ button {
   text-transform: uppercase;
   border-bottom: 1px solid var(--ink);
   padding-bottom: 3px;
+  position: relative;
+}
+
+/* Invisible tap area, at least 44px, centred on small links and controls */
+.text-link::after,
+.nav-book::after,
+.hamburger::before,
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
 }
 
 /* ============================================
@@ -239,7 +254,9 @@ button {
   text-transform: uppercase;
   border: 1px solid var(--ink);
   padding: 9px 12px;
+  position: relative;
 }
+
 
 .hamburger {
   position: relative;
@@ -247,6 +264,7 @@ button {
   width: 26px;
   height: 14px;
 }
+
 
 .hamburger span {
   position: absolute;
@@ -505,8 +523,8 @@ button {
 }
 
 .testimonial-controls button {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--hair);
   border-radius: 50%;
   display: grid;
@@ -594,6 +612,8 @@ button {
 .lightbox.open {
   opacity: 1;
   visibility: visible;
+  /* Visible at once on open, so focus can move into it */
+  transition: opacity 0.4s var(--ease), visibility 0s;
 }
 
 .lightbox-inner img {
@@ -678,42 +698,11 @@ button {
   line-height: 1.35;
 }
 
-/* Outstation: its own row under the packages, sized like an extras line */
-.outstation {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  margin-top: 10px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--hair);
-}
-
-.outstation-name {
-  font-size: 0.92rem;
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-.outstation-name small {
-  display: block;
-  font-size: 0.76rem;
-  font-weight: 400;
-  color: var(--muted);
-}
-
-.outstation-price {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.2rem;
-  white-space: nowrap;
-}
-
-.outstation-price small {
-  font-family: var(--font-body);
-  font-size: 0.76rem;
-  font-weight: 400;
-  color: var(--muted);
+/* Outstation price: same box, below a hairline, a step smaller */
+.package-price-alt {
+  padding-top: 12px;
+  border-top: 1px solid var(--hair);
+  font-size: 1.4rem;
 }
 
 .included {
@@ -992,6 +981,8 @@ button {
   text-transform: uppercase;
 }
 
+.footer-links a { position: relative; }
+
 .footer-contact {
   display: grid;
   gap: 10px;
@@ -1205,22 +1196,21 @@ button {
   .price-info {
     display: grid;
     grid-template-columns: 1.1fr 1fr;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: auto auto 1fr;
     column-gap: 72px;
     align-items: start;
   }
   .price-info > .packages,
-  .price-info > .outstation,
+  .price-info > .good-to-know,
   .price-info > .included { grid-column: 1; }
-  .addons { grid-column: 2; grid-row: 1 / span 4; margin-top: 0; }
+  .addons { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; }
   .included ul { grid-template-columns: repeat(3, 1fr); }
   .addons h2 { font-size: 2.4rem; }
-  .good-to-know { grid-column: 1; }
   .packages { gap: 16px; }
   .package { padding: 26px 24px; }
   .package-name { font-size: 1.5rem; }
   .package-price { font-size: 2.4rem; }
-  .outstation { margin-top: 16px; padding: 14px 0; }
+  .package-price-alt { font-size: 1.8rem; }
   .menu div { padding: 14px 0; }
   .price-wave { margin-top: 72px; }
   .price-cta { padding-top: 24px; padding-bottom: 80px; }

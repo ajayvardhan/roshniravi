@@ -23,6 +23,7 @@ js/main.js          — All interactions (nav, mobile menu, lightbox, testimonia
 images/
   Hero/             — Hero section images
   portfolio/        — Portfolio work images (work-XX.jpg; grid order and alt text set in portfolio.html, keep the count a multiple of 5)
+    thumbs/         — 600px copies of each work-XX.jpg, served to phones via srcset
   about/            — About page images
   og-image.jpg      — Open Graph preview image
 CNAME               — Custom domain config (roshniravi.com)
@@ -54,11 +55,12 @@ Then visit `http://localhost:8000`.
 ## Key Patterns
 
 - **Navigation**: sticky `.navbar` with `.logo`, `.nav-book`, `.hamburger`; `.nav-links` is a full-screen menu. Don't add `backdrop-filter` to `.navbar` (it traps the fixed menu)
-- **Portfolio images**: named `work-XX.jpg`, optimized to 1200px wide, ~80% quality JPEG
-- **CTAs**: all booking links go to WhatsApp (`https://wa.me/919600210413`)
+- **Portfolio images**: named `work-XX.jpg`, optimized to 1200px wide, ~80% quality JPEG. Each also needs a 600px copy in `images/portfolio/thumbs/` (`sips --resampleWidth 600 -s formatOptions 78 work-XX.jpg --out thumbs/work-XX.jpg`); grid `<img>` tags list both in `srcset` and keep the full image in `src` (the lightbox reads `src`)
+- **CTAs**: all booking links go to WhatsApp (`https://wa.me/919600210413`). Booking buttons (nav Book now, menu CTA, `.btn`, floating button) pre-fill the date/events/city message; footer and terms contact links stay plain
+- **Tap targets**: small links/controls get an invisible 44px hit area via `::after`/`::before` (`.text-link`, `.nav-book`, `.hamburger`) rather than larger visible boxes
 - **OG tags**: every page has Open Graph + Twitter Card meta tags
 - **Lightbox**: portfolio page has a custom lightbox for image viewing
-- **Pricing**: information only, no calculator (removed so the page never shows a large running total or fixes a price before Roshni quotes). Prices are shown before GST (5%). Prices are per event (muhurtham and reception are two events). Outstation is +₹20,000 per event, shown as its own row under the packages, not an add-on. The closing WhatsApp link pre-fills date/events/city. When prices change, update `services.html` and `terms.html`
+- **Pricing**: information only, no calculator (removed so the page never shows a large running total or fixes a price before Roshni quotes). Prices are shown before GST (5%). Prices are per event (muhurtham and reception are two events), said once in the page lead: "Prices are per event. GST (5%) extra." Each package box shows two prices: In Chennai and Outstation (₹20,000 more per event, shown as the full price, e.g. HD ₹45,000 / ₹65,000), so nobody has to add it up. The outstation travel-and-stay condition lives in "Good to know", not next to the prices. Don't split them into four boxes; that reads as four packages. The closing WhatsApp link pre-fills date/events/city. When prices change, update `services.html` and `terms.html`
 
 ## Git & Deployment
 
